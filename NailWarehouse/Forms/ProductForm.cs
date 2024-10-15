@@ -30,16 +30,11 @@ namespace NailWarehouse.Forms
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            foreach (Control c in errorProvider1.ContainerControl.Controls)
+            if (Product.IsValid())
             {
-                if (errorProvider1.GetError(c) != "")
-                {
-                    return;
-                }
+                DialogResult = DialogResult.OK;
+                Close();
             }
-
-            DialogResult = DialogResult.OK;
-            Close();
         }
     }
 }
