@@ -43,5 +43,16 @@ namespace NailWarehouse.Contracts.Models
         /// </summary>
         [DisplayName("Цена")]
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Проверка валидности данных
+        /// </summary>
+        public bool IsValid()
+        {
+            var context = new ValidationContext(this);
+            var results = new List<ValidationResult>();
+
+            return Validator.TryValidateObject(this, context, results, validateAllProperties: true);
+        }
     }
 }
