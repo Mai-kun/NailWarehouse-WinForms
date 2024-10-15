@@ -12,12 +12,14 @@ namespace NailWarehouse.Contracts.Models
         /// </summary>
         [DisplayName("Имя")]
         [Required]
+        [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
         /// <summary>
         /// Размер товара
         /// </summary>
         [DisplayName("Размер")]
+        [Range(0d, double.MaxValue)]
         public decimal Size { get; set; }
 
         /// <summary>
@@ -30,18 +32,21 @@ namespace NailWarehouse.Contracts.Models
         /// Количество товаров на складе
         /// </summary>
         [DisplayName("Количество")]
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
 
         /// <summary>
         /// Минимальный предел количества
         /// </summary>
         [DisplayName("Минимальное количество")]
+        [Range(1, int.MaxValue)]
         public int MinimumQuantity { get; set; }
 
         /// <summary>
         /// Цена (без НДС)
         /// </summary>
         [DisplayName("Цена")]
+        [Range(0d, double.MaxValue)]
         public decimal Price { get; set; }
 
         /// <summary>

@@ -3,9 +3,7 @@ using NailWarehouse.Contracts.Models;
 
 namespace NailWarehouse.Storage.Memory
 {
-    /// <summary>
-    /// Класс для управления ведения хранилища
-    /// </summary>
+    /// <inheritdoc cref="IProductStorage"/>
     public class MemoryProductStorage : IProductStorage
     {
         private List<Product> product;
