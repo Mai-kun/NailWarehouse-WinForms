@@ -2,9 +2,7 @@
 
 namespace NailWarehouse.ProductManager.Models
 {
-    /// <summary>
-    /// Класс ведения статистических данных о всех продуктах
-    /// </summary>
+    /// <inheritdoc cref="IProductStats"/>
     public class ProductStatsModel : IProductStats
     {
         /// <summary>

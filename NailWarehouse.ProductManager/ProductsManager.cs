@@ -4,9 +4,7 @@ using NailWarehouse.ProductManager.Models;
 
 namespace NailWarehouse.ProductManager
 {
-    /// <summary>
-    /// Класс для управления хранилищем
-    /// </summary>
+    /// <inheritdoc cref="IProductManager"/>
     public class ProductsManager : IProductManager
     {
         private IProductStorage productStorage;

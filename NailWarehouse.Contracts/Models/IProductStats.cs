@@ -1,5 +1,8 @@
 ﻿namespace NailWarehouse.Contracts.Models
 {
+    /// <summary>
+    /// Статискика по всех <see cref="Product"/>
+    /// </summary>
     public interface IProductStats
     {
         /// <summary>

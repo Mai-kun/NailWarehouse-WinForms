@@ -3,33 +3,31 @@
 namespace NailWarehouse.Contracts
 {
     /// <summary>
-    /// Описание методов для управления хранилищем продуктов
+    /// Управления хранилищем продуктов
     /// </summary>
     public interface IProductManager
     {
         /// <summary>
-        /// Асинхронное получение всех данных данных
+        /// Асинхронное получение всех данных
         /// </summary>
         Task<IReadOnlyCollection<Product>> GetAllAsync();
 
         /// <summary>
-        /// Асинхронный метод добавления данных
+        /// Асинхронное добавление данных
         /// </summary>
         Task<Product> AddAsync(Product product);
 
         /// <summary>
-        /// Асинхронный метод изменения данных
+        /// Асинхронный изменение данных
         /// </summary>
         Task EditAsync(Product product);
 
         /// <summary>
-        /// Асинхронный метод удаления данных
+        /// Асинхронный удаление данных
         /// </summary>
         Task<bool> DeleteAsync(Guid id);
 
-        /// <summary>
-        /// Асинхронный метод получения статистики по всем товарам
-        /// </summary>
+        /// <inheritdoc cref="IProductStats"/>
         Task<IProductStats> GetStatsAsync();
     }
 }

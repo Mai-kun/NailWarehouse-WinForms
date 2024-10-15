@@ -5,7 +5,7 @@ namespace NailWarehouse
     internal class DataGenerator
     {
         /// <summary>
-        /// Создание новый экземпляр класса <see cref="Product"/>
+        /// Создание нового экземпляр <see cref="Product"/>
         /// </summary>
         public static Product CreateDefaultProduct(Action<Product> addInfo = null)
         {

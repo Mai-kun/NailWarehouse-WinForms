@@ -21,10 +21,10 @@ namespace NailWarehouse
 
         private async void TSBAdd_Click(object sender, EventArgs e)
         {
-            using var editForm = new EditForm();
+            using var editForm = new ProductForm();
             if (editForm.ShowDialog() == DialogResult.OK)
             {
-                await productManager.AddAsync(editForm.EditedProduct);
+                await productManager.AddAsync(editForm.Product);
                 bindingSource.ResetBindings(false);
                 await UpdateStatusStrip();
             }
@@ -56,11 +56,11 @@ namespace NailWarehouse
             {
                 var oldProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
 
-                using var editForm = new EditForm(oldProduct);
+                using var editForm = new ProductForm(oldProduct);
 
                 if (editForm.ShowDialog() == DialogResult.OK)
                 {
-                    await productManager.EditAsync(editForm.EditedProduct);
+                    await productManager.EditAsync(editForm.Product);
                     bindingSource.ResetBindings(false);
                     await UpdateStatusStrip();
                 }
