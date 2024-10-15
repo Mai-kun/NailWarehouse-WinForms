@@ -3,15 +3,15 @@ using System.ComponentModel;
 
 namespace NailWarehouse
 {
-    internal static class EnumHelper
+    public static class EnumHelper
     {
         /// <summary>
-        /// Получение всех атрибутов описания из Enum
+        /// Получение всех атрибутов описания (descriptions)
         /// </summary>
-        public static IEnumerable<string> GetEnumDescriptions(Type enumType)
+        public static IEnumerable<string> GetEnumDescriptions(Type type)
         {
             var strings = new Collection<string>();
-            foreach (Enum value in Enum.GetValues(enumType))
+            foreach (Enum value in Enum.GetValues(type))
             {
                 strings.Add(GetEnumDescription(value));
             }

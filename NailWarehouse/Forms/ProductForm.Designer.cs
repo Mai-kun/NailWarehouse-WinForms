@@ -1,6 +1,6 @@
 ﻿namespace NailWarehouse.Forms
 {
-    partial class EditForm
+    partial class ProductForm
     {
         /// <summary>
         /// Required designer variable.
