@@ -7,7 +7,7 @@ namespace NailWarehouse
     public static class Extensions
     {
         /// <summary>
-        /// Метод для создания Binding к Control
+        /// Создание Binding к Control
         /// </summary>
         public static void AddBinding<TControl, TSource>(this TControl target,
             Expression<Func<TControl, object>> targetProperty,
@@ -62,7 +62,5 @@ namespace NailWarehouse
 
             throw new ArgumentException();
         }
-
-
     }
 }
