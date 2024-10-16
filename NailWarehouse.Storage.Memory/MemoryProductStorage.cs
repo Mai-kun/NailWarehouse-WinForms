@@ -37,7 +37,7 @@ namespace NailWarehouse.Storage.Memory
         public Task EditAsync(Product product)
         {
             var target = this.product.FirstOrDefault(x => x.Id == product.Id);
-            if (product != null)
+            if (target != null)
             {
                 target.Id = product.Id;
                 target.Name = product.Name;
