@@ -58,11 +58,19 @@ namespace NailWarehouse
 
                 using var editForm = new ProductForm(oldProduct);
 
-                if (editForm.ShowDialog() == DialogResult.OK)
+                if (MessageBox.Show(
+                    $"Изменить товар \"{oldProduct.Name}\"?",
+                    "Уведомление",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information
+                    ) == DialogResult.OK)
                 {
-                    await productManager.EditAsync(editForm.Product);
-                    bindingSource.ResetBindings(false);
-                    await UpdateStatusStrip();
+                    if (editForm.ShowDialog() == DialogResult.OK)
+                    {
+                        await productManager.EditAsync(editForm.Product);
+                        bindingSource.ResetBindings(false);
+                        await UpdateStatusStrip();
+                    }
                 }
             }
         }
