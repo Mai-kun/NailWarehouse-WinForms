@@ -15,7 +15,7 @@ namespace NailWarehouse.Forms
 
             tbName.AddBinding(control => control.Text, product, product => product.Name, errorProvider1);
             numSize.AddBinding(control => control.Value, product, product => product.Size, errorProvider1);
-            cbMaterials.AddBinding(control => control.SelectedItem, product, product => product.Material, errorProvider1);
+            cbMaterials.AddBinding(control => control.SelectedItem, product, product => product.Material);
             numQuantity.AddBinding(control => control.Value, product, product => product.Quantity, errorProvider1);
             numMinimumQuantity.AddBinding(control => control.Value, product, product => product.MinimumQuantity, errorProvider1);
             numPrice.AddBinding(control => control.Value, product, product => product.Price, errorProvider1);
