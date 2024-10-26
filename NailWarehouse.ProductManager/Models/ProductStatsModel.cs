@@ -5,13 +5,13 @@ namespace NailWarehouse.ProductManager.Models
     /// <inheritdoc cref="IProductStats"/>
     public class ProductStatsModel : IProductStats
     {
-        /// <inheritdoc cref="IProductStats.TotalAmount"/>
+        /// <inheritdoc />
         public decimal TotalAmount { get; set; }
 
-        /// <inheritdoc cref="IProductStats.FullPriceNoNds"/>
+        /// <inheritdoc />
         public decimal FullPriceNoNds { get; set; }
 
-        /// <inheritdoc cref="IProductStats.FullPriceWithNds"/>
+        /// <inheritdoc />
         public decimal FullPriceWithNds { get; set; }
     }
 }
