@@ -43,8 +43,8 @@ namespace NailWarehouse.ProductManager
             return new ProductStatsModel
             {
                 TotalAmount = product.Count,
-                FullPriceNoNDS = product.Select(x => x.Quantity * x.Price).Sum(),
-                FullPriceWithNDS = product.Select(x => x.Quantity * x.Price).Sum() * 1.2m,
+                FullPriceNoNds = product.Select(x => x.Quantity * x.Price).Sum(),
+                FullPriceWithNds = product.Select(x => x.Quantity * x.Price).Sum() * 1.2m,
             };
         }
     }

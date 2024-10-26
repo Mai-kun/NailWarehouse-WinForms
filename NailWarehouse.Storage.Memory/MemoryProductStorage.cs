@@ -6,21 +6,21 @@ namespace NailWarehouse.Storage.Memory
     /// <inheritdoc cref="IProductStorage"/>
     public class MemoryProductStorage : IProductStorage
     {
-        private List<Product> product;
+        private readonly List<Product> product;
 
         public MemoryProductStorage()
         {
             product = new List<Product>();
         }
 
-        /// <inheritdoc cref="IProductStorage.AddAsync(Product)"/>
+        /// <inheritdoc />
         public Task<Product> AddAsync(Product product)
         {
             this.product.Add(product);
             return Task.FromResult(product);
         }
 
-        /// <inheritdoc cref="IProductStorage.DeleteAsync(Guid)"/>
+        /// <inheritdoc />
         public Task<bool> DeleteAsync(Guid id)
         {
             var product = this.product.FirstOrDefault(x => x.Id == id);
@@ -33,7 +33,7 @@ namespace NailWarehouse.Storage.Memory
             return Task.FromResult(false);
         }
 
-        /// <inheritdoc cref="IProductStorage.EditAsync(Product)"/>
+        /// <inheritdoc />
         public Task EditAsync(Product product)
         {
             var target = this.product.FirstOrDefault(x => x.Id == product.Id);
@@ -51,8 +51,10 @@ namespace NailWarehouse.Storage.Memory
             return Task.CompletedTask;
         }
 
-        /// <inheritdoc cref="IProductStorage.GetAllAsync"/>
+        /// <inheritdoc />
         public Task<IReadOnlyCollection<Product>> GetAllAsync()
-            => Task.FromResult<IReadOnlyCollection<Product>>(product);
+        {
+            return Task.FromResult<IReadOnlyCollection<Product>>(product);
+        }
     }
 }

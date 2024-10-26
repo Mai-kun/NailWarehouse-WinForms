@@ -37,8 +37,8 @@ namespace NailWarehouse
                 var oldProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
 
                 if (MessageBox.Show(
-                    $"Точно удалить товар \"{oldProduct.Name}\"?",
-                    "Внимание",
+                    $"Р’С‹ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ С‚РѕРІР°СЂ \"{oldProduct.Name}\"?",
+                    "Р’РЅРёРјР°РЅРёРµ",
                     MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Warning
                     ) == DialogResult.OK)
@@ -59,8 +59,8 @@ namespace NailWarehouse
                 using var editForm = new ProductForm(oldProduct);
 
                 if (MessageBox.Show(
-                    $"Изменить товар \"{oldProduct.Name}\"?",
-                    "Уведомление",
+                    $"Р’С‹ С…РѕС‚РёС‚Рµ РёР·РјРµРЅРёС‚СЊ С‚РѕРІР°СЂ \"{oldProduct.Name}\"?",
+                    "Р’РЅРёРјР°РЅРёРµ",
                     MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information
                     ) == DialogResult.OK)
@@ -78,9 +78,9 @@ namespace NailWarehouse
         private async Task UpdateStatusStrip()
         {
             var result = await productManager.GetStatsAsync();
-            tssRowsAmount.Text = $"Количество строк: {result.TotalAmount}";
-            tssPriceNDS.Text = $"Цена с НДС: {result.FullPriceWithNDS}";
-            tssPriceNoNDS.Text = $"Цена без НДС: {result.FullPriceNoNDS}";
+            tssRowsAmount.Text = $"РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ: {result.TotalAmount}";
+            tssPriceNDS.Text = $"Р¦РµРЅР° СЃ РќР”РЎ: {result.FullPriceWithNds}";
+            tssPriceNoNDS.Text = $"Р¦РµРЅР° Р±РµР· РќР”РЎ: {result.FullPriceNoNds}";
         }
 
         private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -96,10 +96,10 @@ namespace NailWarehouse
         {
             bindingSource.DataSource = await productManager.GetAllAsync();
             await UpdateStatusStrip();
-            dataGridView1.Columns.Add("TotalPrice", "Сумма");
+            dataGridView1.Columns.Add("TotalPrice", "РћР±С‰Р°СЏ С†РµРЅР°");
             dataGridView1.Columns[nameof(Product.Id)].Visible = false;
         }
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        private void РІС‹С…РѕРґToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -13,11 +13,11 @@
         /// <summary>
         /// Общая стоимость всех товаров без НДС
         /// </summary>
-        decimal FullPriceNoNDS { get; }
+        decimal FullPriceNoNds { get; }
 
         /// <summary>
         /// Общая стоимость всех товаров с НДС
         /// </summary>
-        decimal FullPriceWithNDS { get; }
+        decimal FullPriceWithNds { get; }
     }
 }

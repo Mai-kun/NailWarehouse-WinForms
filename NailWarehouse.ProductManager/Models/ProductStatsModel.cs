@@ -8,10 +8,10 @@ namespace NailWarehouse.ProductManager.Models
         /// <inheritdoc cref="IProductStats.TotalAmount"/>
         public decimal TotalAmount { get; set; }
 
-        /// <inheritdoc cref="IProductStats.FullPriceNoNDS"/>
-        public decimal FullPriceNoNDS { get; set; }
+        /// <inheritdoc cref="IProductStats.FullPriceNoNds"/>
+        public decimal FullPriceNoNds { get; set; }
 
-        /// <inheritdoc cref="IProductStats.FullPriceWithNDS"/>
-        public decimal FullPriceWithNDS { get; set; }
+        /// <inheritdoc cref="IProductStats.FullPriceWithNds"/>
+        public decimal FullPriceWithNds { get; set; }
     }
 }
