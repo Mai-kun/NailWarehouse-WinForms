@@ -19,7 +19,7 @@ namespace NailWarehouse.ProductManager
             this.logger = logger;
         }
 
-        /// <inheritdoc cref="IProductManager.AddAsync(Product)"/>
+        /// <inheritdoc />
         public async Task<Product> AddAsync(Product product)
         {
             var stopwatch = Stopwatch.StartNew();
@@ -30,7 +30,7 @@ namespace NailWarehouse.ProductManager
             return result;
         }
 
-        /// <inheritdoc cref="IProductManager.DeleteAsync(Guid)"/>
+        /// <inheritdoc />
         public async Task<bool> DeleteAsync(Guid id)
         {
             var stopwatch = Stopwatch.StartNew();
@@ -45,7 +45,7 @@ namespace NailWarehouse.ProductManager
             return result;
         }
 
-        /// <inheritdoc cref="IProductManager.EditAsync(Product)"/>
+        /// <inheritdoc />
         public Task EditAsync(Product product)
         {
             var stopwatch = Stopwatch.StartNew();
@@ -56,7 +56,7 @@ namespace NailWarehouse.ProductManager
             return result;
         }
 
-        /// <inheritdoc cref="IProductManager.GetAllAsync"/>
+        /// <inheritdoc />
         public Task<IReadOnlyCollection<Product>> GetAllAsync()
         {
             var stopwatch = Stopwatch.StartNew();
@@ -67,7 +67,7 @@ namespace NailWarehouse.ProductManager
             return result;
         }
 
-        /// <inheritdoc cref="IProductManager.GetStatsAsync"/>
+        /// <inheritdoc />
         public async Task<IProductStats> GetStatsAsync()
         {
             var product = await productStorage.GetAllAsync();
