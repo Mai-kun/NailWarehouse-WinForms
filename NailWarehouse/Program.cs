@@ -15,8 +15,11 @@ namespace NailWarehouse
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            using var factory = LoggerFactory.Create(builder => builder.AddDebug());
-            var logger = factory.CreateLogger("NailWarehouse.ProductManager");
+            var logger = LoggerFactory.Create(builder =>
+            {
+                builder.SetMinimumLevel(LogLevel.Debug);
+                builder.AddDebug();
+            }).CreateLogger(nameof(ProductsManager));
 
             var storage = new MemoryProductStorage();
             var manager = new ProductsManager(storage, logger);
