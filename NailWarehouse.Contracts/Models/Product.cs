@@ -39,7 +39,7 @@ namespace NailWarehouse.Contracts.Models
         /// Минимальный предел количества
         /// </summary>
         [DisplayName("Минимальное количество")]
-        [Range(1, int.MaxValue)]
+        [Range(0, int.MaxValue)]
         public int MinimumQuantity { get; set; }
 
         /// <summary>

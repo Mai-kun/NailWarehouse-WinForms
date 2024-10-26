@@ -4,14 +4,19 @@ namespace NailWarehouse.Forms
 {
     public partial class ProductForm : Form
     {
-        private Product product;
+        private readonly Product product;
 
         public ProductForm(Product oldProduct = null)
         {
             InitializeComponent();
             InitializeComboBox();
 
-            product = oldProduct ?? DataGenerator.CreateDefaultProduct();
+            product = oldProduct ?? new Product()
+            {
+                Id = Guid.NewGuid(),
+                Name = "",
+                Material = EnumHelper.GetEnumDescription(Materials.Copper),
+            };
 
             tbName.AddBinding(control => control.Text, product, product => product.Name, errorProvider1);
             numSize.AddBinding(control => control.Value, product, product => product.Size, errorProvider1);
