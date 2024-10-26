@@ -1,4 +1,5 @@
-﻿using NailWarehouse.Contracts.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using NailWarehouse.Contracts.Models;
 
 namespace NailWarehouse.Forms
 {
@@ -35,7 +36,10 @@ namespace NailWarehouse.Forms
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            if (Product.IsValid())
+            var context = new ValidationContext(this);
+            var results = new List<ValidationResult>();
+
+            if (Validator.TryValidateObject(this, context, results, validateAllProperties: true))
             {
                 DialogResult = DialogResult.OK;
                 Close();
