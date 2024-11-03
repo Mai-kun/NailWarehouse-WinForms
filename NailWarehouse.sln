@@ -5,11 +5,9 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse", "NailWarehouse\NailWarehouse.csproj", "{A07E03B9-559D-4C5A-8FF7-CF0D43810541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NailWarehouse.Contracts", "NailWarehouse.Contracts\NailWarehouse.Contracts.csproj", "{ED2316AF-A893-4854-B92A-D6ECDBA05F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.Contracts", "NailWarehouse.Contracts\NailWarehouse.Contracts.csproj", "{ED2316AF-A893-4854-B92A-D6ECDBA05F85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NailWarehouse.ProductManager", "NailWarehouse.ProductManager\NailWarehouse.ProductManager.csproj", "{E9E66E07-55BB-4FAE-BF8C-97644CFB5B54}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NailWarehouse.Storage.Memory", "NailWarehouse.Storage.Memory\NailWarehouse.Storage.Memory.csproj", "{A46781E5-4268-4B8C-9DA3-C43D4F024D2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.ProductManager", "NailWarehouse.ProductManager\NailWarehouse.ProductManager.csproj", "{E9E66E07-55BB-4FAE-BF8C-97644CFB5B54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{E9E66E07-55BB-4FAE-BF8C-97644CFB5B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9E66E07-55BB-4FAE-BF8C-97644CFB5B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9E66E07-55BB-4FAE-BF8C-97644CFB5B54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A46781E5-4268-4B8C-9DA3-C43D4F024D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A46781E5-4268-4B8C-9DA3-C43D4F024D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A46781E5-4268-4B8C-9DA3-C43D4F024D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A46781E5-4268-4B8C-9DA3-C43D4F024D2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,7 +26,7 @@ namespace NailWarehouse.ProductManager
             var result = await productStorage.AddAsync(product);
             stopwatch.Stop();
 
-            logger.LogDebug(string.Format(TimeLoggerTemplate, nameof(AddAsync), stopwatch.ElapsedMilliseconds));
+            logger.LogDebug(TimeLoggerTemplate, nameof(AddAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
@@ -41,7 +41,7 @@ namespace NailWarehouse.ProductManager
             }
             stopwatch.Stop();
 
-            logger.LogDebug(string.Format(TimeLoggerTemplate, nameof(DeleteAsync), stopwatch.ElapsedMilliseconds));
+            logger.LogDebug(TimeLoggerTemplate, nameof(DeleteAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
@@ -52,7 +52,7 @@ namespace NailWarehouse.ProductManager
             var result = productStorage.EditAsync(product);
             stopwatch.Stop();
 
-            logger.LogDebug(string.Format(TimeLoggerTemplate, nameof(EditAsync), stopwatch.ElapsedMilliseconds));
+            logger.LogDebug(TimeLoggerTemplate, nameof(EditAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
@@ -63,14 +63,18 @@ namespace NailWarehouse.ProductManager
             var result = productStorage.GetAllAsync();
             stopwatch.Stop();
 
-            logger.LogDebug(string.Format(TimeLoggerTemplate, nameof(GetAllAsync), stopwatch.ElapsedMilliseconds));
+            logger.LogDebug(TimeLoggerTemplate, nameof(GetAllAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
         /// <inheritdoc />
         public async Task<IProductStats> GetStatsAsync()
         {
+            var stopwatch = Stopwatch.StartNew();
             var product = await productStorage.GetAllAsync();
+            stopwatch.Stop();
+            logger.LogDebug(TimeLoggerTemplate, nameof(GetStatsAsync), stopwatch.ElapsedMilliseconds);
+
             return new ProductStatsModel
             {
                 TotalAmount = product.Count,

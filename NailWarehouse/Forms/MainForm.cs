@@ -99,6 +99,7 @@ namespace NailWarehouse
             dataGridView1.Columns.Add("TotalPrice", "Общая цена");
             dataGridView1.Columns[nameof(Product.Id)].Visible = false;
         }
+
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
