@@ -39,7 +39,7 @@ namespace NailWarehouse.Contracts.Models
         /// Минимальный предел количества
         /// </summary>
         [DisplayName("Минимальное количество")]
-        [Range(1, int.MaxValue)]
+        [Range(0, int.MaxValue)]
         public int MinimumQuantity { get; set; }
 
         /// <summary>
@@ -48,16 +48,5 @@ namespace NailWarehouse.Contracts.Models
         [DisplayName("Цена")]
         [Range(0d, double.MaxValue)]
         public decimal Price { get; set; }
-
-        /// <summary>
-        /// Проверка валидности данных
-        /// </summary>
-        public bool IsValid()
-        {
-            var context = new ValidationContext(this);
-            var results = new List<ValidationResult>();
-
-            return Validator.TryValidateObject(this, context, results, validateAllProperties: true);
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using NailWarehouse.Contracts;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+using NailWarehouse.Contracts;
 using NailWarehouse.Contracts.Models;
 using NailWarehouse.ProductManager.Models;
 
@@ -7,44 +9,77 @@ namespace NailWarehouse.ProductManager
     /// <inheritdoc cref="IProductManager"/>
     public class ProductsManager : IProductManager
     {
-        private IProductStorage productStorage;
+        private readonly IProductStorage productStorage;
+        private readonly ILogger logger;
+        private const string TimeLoggerTemplate = "{0} выполнился за {1} мс";
 
-        public ProductsManager(IProductStorage productStorage)
+        public ProductsManager(IProductStorage productStorage, ILogger logger)
         {
             this.productStorage = productStorage;
+            this.logger = logger;
         }
 
-        /// <inheritdoc cref="IProductManager.AddAsync(Product)"/>
+        /// <inheritdoc />
         public async Task<Product> AddAsync(Product product)
         {
+            var stopwatch = Stopwatch.StartNew();
             var result = await productStorage.AddAsync(product);
+            stopwatch.Stop();
+
+            logger.LogDebug(TimeLoggerTemplate, nameof(AddAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
-        /// <inheritdoc cref="IProductManager.DeleteAsync(Guid)"/>
+        /// <inheritdoc />
         public async Task<bool> DeleteAsync(Guid id)
         {
+            var stopwatch = Stopwatch.StartNew();
             var result = await productStorage.DeleteAsync(id);
+            if (result)
+            {
+                logger.LogDebug($"Продукт {id} удален");
+            }
+            stopwatch.Stop();
+
+            logger.LogDebug(TimeLoggerTemplate, nameof(DeleteAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
-        /// <inheritdoc cref="IProductManager.EditAsync(Product)"/>
+        /// <inheritdoc />
         public Task EditAsync(Product product)
-            => productStorage.EditAsync(product);
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var result = productStorage.EditAsync(product);
+            stopwatch.Stop();
 
-        /// <inheritdoc cref="IProductManager.GetAllAsync"/>
+            logger.LogDebug(TimeLoggerTemplate, nameof(EditAsync), stopwatch.ElapsedMilliseconds);
+            return result;
+        }
+
+        /// <inheritdoc />
         public Task<IReadOnlyCollection<Product>> GetAllAsync()
-            => productStorage.GetAllAsync();
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var result = productStorage.GetAllAsync();
+            stopwatch.Stop();
 
-        /// <inheritdoc cref="IProductManager.GetStatsAsync"/>
+            logger.LogDebug(TimeLoggerTemplate, nameof(GetAllAsync), stopwatch.ElapsedMilliseconds);
+            return result;
+        }
+
+        /// <inheritdoc />
         public async Task<IProductStats> GetStatsAsync()
         {
+            var stopwatch = Stopwatch.StartNew();
             var product = await productStorage.GetAllAsync();
+            stopwatch.Stop();
+            logger.LogDebug(TimeLoggerTemplate, nameof(GetStatsAsync), stopwatch.ElapsedMilliseconds);
+
             return new ProductStatsModel
             {
                 TotalAmount = product.Count,
-                FullPriceNoNDS = product.Select(x => x.Quantity * x.Price).Sum(),
-                FullPriceWithNDS = product.Select(x => x.Quantity * x.Price).Sum() * 1.2m,
+                FullPriceNoNds = product.Select(x => x.Quantity * x.Price).Sum(),
+                FullPriceWithNds = product.Select(x => x.Quantity * x.Price).Sum() * 1.2m,
             };
         }
     }

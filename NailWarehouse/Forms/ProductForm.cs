@@ -1,17 +1,23 @@
-﻿using NailWarehouse.Contracts.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using NailWarehouse.Contracts.Models;
 
 namespace NailWarehouse.Forms
 {
     public partial class ProductForm : Form
     {
-        private Product product;
+        private readonly Product product;
 
         public ProductForm(Product oldProduct = null)
         {
             InitializeComponent();
             InitializeComboBox();
 
-            product = oldProduct ?? DataGenerator.CreateDefaultProduct();
+            product = oldProduct ?? new Product()
+            {
+                Id = Guid.NewGuid(),
+                Name = "",
+                Material = EnumHelper.GetEnumDescription(Materials.Copper),
+            };
 
             tbName.AddBinding(control => control.Text, product, product => product.Name, errorProvider1);
             numSize.AddBinding(control => control.Value, product, product => product.Size, errorProvider1);
@@ -30,7 +36,10 @@ namespace NailWarehouse.Forms
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            if (Product.IsValid())
+            var context = new ValidationContext(this);
+            var results = new List<ValidationResult>();
+
+            if (Validator.TryValidateObject(this, context, results, validateAllProperties: true))
             {
                 DialogResult = DialogResult.OK;
                 Close();
