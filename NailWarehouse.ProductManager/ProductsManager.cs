@@ -11,7 +11,7 @@ namespace NailWarehouse.ProductManager
     {
         private readonly IProductStorage productStorage;
         private readonly ILogger logger;
-        private const string TimeLoggerTemplate = "{0} выполнился за {1} мс";
+        private const string TimeTemplateLogger = "{MethodName} выполнился за {Time} мс";
 
         public ProductsManager(IProductStorage productStorage, ILogger logger)
         {
@@ -26,7 +26,8 @@ namespace NailWarehouse.ProductManager
             var result = await productStorage.AddAsync(product);
             stopwatch.Stop();
 
-            logger.LogDebug(TimeLoggerTemplate, nameof(AddAsync), stopwatch.ElapsedMilliseconds);
+            logger.LogInformation("Продут добавлен. Примечание: {@Product}", product);
+            logger.LogInformation(TimeTemplateLogger, nameof(AddAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
@@ -37,11 +38,15 @@ namespace NailWarehouse.ProductManager
             var result = await productStorage.DeleteAsync(id);
             if (result)
             {
-                logger.LogDebug($"Продукт {id} удален");
+                logger.LogInformation("Продукт {Id} удален", id);
+            }
+            else
+            {
+                logger.LogInformation("Не удалось удалить продукта {Id}", id);
             }
             stopwatch.Stop();
 
-            logger.LogDebug(TimeLoggerTemplate, nameof(DeleteAsync), stopwatch.ElapsedMilliseconds);
+            logger.LogInformation(TimeTemplateLogger, nameof(DeleteAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
@@ -52,7 +57,7 @@ namespace NailWarehouse.ProductManager
             var result = productStorage.EditAsync(product);
             stopwatch.Stop();
 
-            logger.LogDebug(TimeLoggerTemplate, nameof(EditAsync), stopwatch.ElapsedMilliseconds);
+            logger.LogInformation(TimeTemplateLogger, nameof(EditAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
@@ -63,7 +68,7 @@ namespace NailWarehouse.ProductManager
             var result = productStorage.GetAllAsync();
             stopwatch.Stop();
 
-            logger.LogDebug(TimeLoggerTemplate, nameof(GetAllAsync), stopwatch.ElapsedMilliseconds);
+            logger.LogInformation(TimeTemplateLogger, nameof(GetAllAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
@@ -73,7 +78,7 @@ namespace NailWarehouse.ProductManager
             var stopwatch = Stopwatch.StartNew();
             var product = await productStorage.GetAllAsync();
             stopwatch.Stop();
-            logger.LogDebug(TimeLoggerTemplate, nameof(GetStatsAsync), stopwatch.ElapsedMilliseconds);
+            logger.LogInformation(TimeTemplateLogger, nameof(GetStatsAsync), stopwatch.ElapsedMilliseconds);
 
             return new ProductStatsModel
             {

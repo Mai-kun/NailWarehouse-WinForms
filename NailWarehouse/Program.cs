@@ -1,6 +1,7 @@
-using Microsoft.Extensions.Logging;
 using NailWarehouse.ProductManager;
 using NailWarehouse.Storage.Memory;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace NailWarehouse
 {
@@ -15,11 +16,13 @@ namespace NailWarehouse
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            var logger = LoggerFactory.Create(builder =>
-            {
-                builder.SetMinimumLevel(LogLevel.Debug);
-                builder.AddDebug();
-            }).CreateLogger(nameof(ProductsManager));
+
+            var serilogLogger = new LoggerConfiguration()
+             .WriteTo.Seq("http://localhost:5341")
+             .CreateLogger();
+
+            var logger = new SerilogLoggerFactory()
+                .CreateLogger(nameof(ProductManager));
 
             var storage = new MemoryProductStorage();
             var manager = new ProductsManager(storage, logger);
