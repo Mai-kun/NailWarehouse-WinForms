@@ -52,7 +52,11 @@ namespace NailWarehouse.ProductManager.Tests
             result.Should().NotBeNull().And.Be(model);
             productStorageMock.Verify(x => x.AddAsync(It.Is<Product>(y => y.Id == model.Id)), Times.Once);
             productStorageMock.VerifyNoOtherCalls();
-            loggerMock.Verify(x => x.LogInformation(It.IsAny<string?>(), It.IsAny<object[]>()), Times.Exactly(2));
+            loggerMock.Verify(x => x.Log(LogLevel.Information,
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                null,
+                It.IsAny<Func<It.IsAnyType, Exception, string>>()), Times.Exactly(2));
         }
     }
 }
