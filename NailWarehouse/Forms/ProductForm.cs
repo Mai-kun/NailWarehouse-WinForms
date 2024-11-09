@@ -36,10 +36,10 @@ namespace NailWarehouse.Forms
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            var context = new ValidationContext(this);
+            var context = new ValidationContext(product);
             var results = new List<ValidationResult>();
 
-            if (Validator.TryValidateObject(this, context, results, validateAllProperties: true))
+            if (Validator.TryValidateObject(product, context, results, validateAllProperties: true))
             {
                 DialogResult = DialogResult.OK;
                 Close();
