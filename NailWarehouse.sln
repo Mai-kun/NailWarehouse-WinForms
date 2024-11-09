@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.ProductManage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.Storage.Memory", "NailWarehouse.Storage.Memory\NailWarehouse.Storage.Memory.csproj", "{66A366C8-9269-4613-A814-B1D9B7E3CAF2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.Storage.Memory.Tests", "NailWarehouse.Storage.Memory.Tests\NailWarehouse.Storage.Memory.Tests.csproj", "{2B556E1A-8FCF-4907-97DB-B9E2208C1DC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NailWarehouse.ProductManager.Tests", "NailWarehouse.ProductManager.Tests\NailWarehouse.ProductManager.Tests.csproj", "{BE349884-CD32-4058-BFC1-776400138C94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{66A366C8-9269-4613-A814-B1D9B7E3CAF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66A366C8-9269-4613-A814-B1D9B7E3CAF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66A366C8-9269-4613-A814-B1D9B7E3CAF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B556E1A-8FCF-4907-97DB-B9E2208C1DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B556E1A-8FCF-4907-97DB-B9E2208C1DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B556E1A-8FCF-4907-97DB-B9E2208C1DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B556E1A-8FCF-4907-97DB-B9E2208C1DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE349884-CD32-4058-BFC1-776400138C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE349884-CD32-4058-BFC1-776400138C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE349884-CD32-4058-BFC1-776400138C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE349884-CD32-4058-BFC1-776400138C94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
