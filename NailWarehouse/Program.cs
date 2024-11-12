@@ -1,6 +1,7 @@
 using NailWarehouse.ProductManager;
 using NailWarehouse.Storage.Memory;
 using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace NailWarehouse
 {
@@ -20,8 +21,11 @@ namespace NailWarehouse
                 .WriteTo.Seq("http://localhost:5341", apiKey: "P9byCpl4ZvC3z60Acp4l")
                 .CreateLogger();
 
+            var logger = new SerilogLoggerFactory(serilogLogger)
+                .CreateLogger(nameof(ProductsManager));
+
             var storage = new MemoryProductStorage();
-            var manager = new ProductsManager(storage, serilogLogger);
+            var manager = new ProductsManager(storage, logger);
             Application.Run(new MainForm(manager));
         }
     }
