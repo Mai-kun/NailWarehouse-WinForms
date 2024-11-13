@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using NailWarehouse.Contracts;
 using NailWarehouse.Contracts.Models;
 using NailWarehouse.ProductManager.Models;
@@ -11,7 +10,7 @@ namespace NailWarehouse.ProductManager
     {
         private readonly IProductStorage productStorage;
         private readonly ILogger logger;
-        private const string TimeTemplateLogger = "{MethodName} выполнился за {Time} мс";
+        private const string TimeTemplateLogger = "{Operation} выполнился за {ElapsedMilliseconds} мс";
 
         public ProductsManager(IProductStorage productStorage, ILogger logger)
         {
@@ -22,20 +21,27 @@ namespace NailWarehouse.ProductManager
         /// <inheritdoc />
         public async Task<Product> AddAsync(Product product)
         {
-            var stopwatch = Stopwatch.StartNew();
-            var result = await productStorage.AddAsync(product);
-            stopwatch.Stop();
+            var result = await StopwatchWrapper.MeasureExecutionTimeAsync(
+                async () => await productStorage.AddAsync(product),
+                logger,
+                nameof(AddAsync),
+                TimeTemplateLogger
+            );
 
-            logger.LogInformation("Продут добавлен. Примечание: {@Product}", product);
-            logger.LogInformation(TimeTemplateLogger, nameof(AddAsync), stopwatch.ElapsedMilliseconds);
+            logger.LogInformation("Продукт добавлен. Примечание: {@Product}", product);
             return result;
         }
 
         /// <inheritdoc />
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var stopwatch = Stopwatch.StartNew();
-            var result = await productStorage.DeleteAsync(id);
+            var result = await StopwatchWrapper.MeasureExecutionTimeAsync(
+                async () => await productStorage.DeleteAsync(id),
+                logger,
+                nameof(DeleteAsync),
+                TimeTemplateLogger
+            );
+
             if (result)
             {
                 logger.LogInformation("Продукт {Id} удален", id);
@@ -44,41 +50,41 @@ namespace NailWarehouse.ProductManager
             {
                 logger.LogInformation("Не удалось удалить продукта {Id}", id);
             }
-            stopwatch.Stop();
 
-            logger.LogInformation(TimeTemplateLogger, nameof(DeleteAsync), stopwatch.ElapsedMilliseconds);
             return result;
         }
 
         /// <inheritdoc />
         public Task EditAsync(Product product)
         {
-            var stopwatch = Stopwatch.StartNew();
-            var result = productStorage.EditAsync(product);
-            stopwatch.Stop();
-
-            logger.LogInformation(TimeTemplateLogger, nameof(EditAsync), stopwatch.ElapsedMilliseconds);
-            return result;
+            return StopwatchWrapper.MeasureExecutionTimeAsync(
+                () => productStorage.EditAsync(product),
+                logger,
+                nameof(EditAsync),
+                TimeTemplateLogger
+            );
         }
 
         /// <inheritdoc />
         public Task<IReadOnlyCollection<Product>> GetAllAsync()
         {
-            var stopwatch = Stopwatch.StartNew();
-            var result = productStorage.GetAllAsync();
-            stopwatch.Stop();
-
-            logger.LogInformation(TimeTemplateLogger, nameof(GetAllAsync), stopwatch.ElapsedMilliseconds);
-            return result;
+            return StopwatchWrapper.MeasureExecutionTimeAsync(
+                () => productStorage.GetAllAsync(),
+                logger,
+                nameof(GetAllAsync),
+                TimeTemplateLogger
+            );
         }
 
         /// <inheritdoc />
         public async Task<IProductStats> GetStatsAsync()
         {
-            var stopwatch = Stopwatch.StartNew();
-            var product = await productStorage.GetAllAsync();
-            stopwatch.Stop();
-            logger.LogInformation(TimeTemplateLogger, nameof(GetStatsAsync), stopwatch.ElapsedMilliseconds);
+            var product = await StopwatchWrapper.MeasureExecutionTimeAsync(
+                () => productStorage.GetAllAsync(),
+                logger,
+                nameof(GetStatsAsync),
+                TimeTemplateLogger
+            );
 
             return new ProductStatsModel
             {

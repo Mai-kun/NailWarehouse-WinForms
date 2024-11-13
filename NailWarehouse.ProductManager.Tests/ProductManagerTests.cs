@@ -124,18 +124,18 @@ namespace NailWarehouse.ProductManager.Tests
         public async Task EditAsyncShouldWork()
         {
             // Arrange
-            var model = new Product()
+            var model = new Product
             {
                 Id = Guid.NewGuid(),
-                Name = "qwe",
-                Size = 2,
-                Material = Materials.Copper.ToString(),
-                Quantity = 11,
+                Name = "Оригинальный",
+                Size = 1,
+                Material = Materials.Chrome.ToString(),
+                Quantity = 10,
                 MinimumQuantity = 1,
-                Price = 10,
+                Price = 100
             };
 
-            productStorageMock.Setup(x => x.EditAsync(It.IsAny<Product>())).Returns(Task.CompletedTask);
+            productStorageMock.Setup(x => x.EditAsync(It.IsAny<Product>()));
 
             // Act
             await productManager.EditAsync(model);
@@ -212,7 +212,5 @@ namespace NailWarehouse.ProductManager.Tests
                 null,
                 It.IsAny<Func<It.IsAnyType, Exception, string>>()), Times.Once);
         }
-
-
     }
 }
