@@ -10,7 +10,6 @@ namespace NailWarehouse.ProductManager
     {
         private readonly IProductStorage productStorage;
         private readonly ILogger logger;
-        private const string TimeTemplateLogger = "{Operation} выполнился за {ElapsedMilliseconds} мс";
 
         public ProductsManager(IProductStorage productStorage, ILogger logger)
         {
@@ -22,10 +21,9 @@ namespace NailWarehouse.ProductManager
         public async Task<Product> AddAsync(Product product)
         {
             var result = await StopwatchWrapper.MeasureExecutionTimeAsync(
-                async () => await productStorage.AddAsync(product),
+                () => productStorage.AddAsync(product),
                 logger,
-                nameof(AddAsync),
-                TimeTemplateLogger
+                nameof(AddAsync)
             );
 
             logger.LogInformation("Продукт добавлен. Примечание: {@Product}", product);
@@ -36,10 +34,9 @@ namespace NailWarehouse.ProductManager
         public async Task<bool> DeleteAsync(Guid id)
         {
             var result = await StopwatchWrapper.MeasureExecutionTimeAsync(
-                async () => await productStorage.DeleteAsync(id),
+                () => productStorage.DeleteAsync(id),
                 logger,
-                nameof(DeleteAsync),
-                TimeTemplateLogger
+                nameof(DeleteAsync)
             );
 
             if (result)
@@ -60,38 +57,37 @@ namespace NailWarehouse.ProductManager
             return StopwatchWrapper.MeasureExecutionTimeAsync(
                 () => productStorage.EditAsync(product),
                 logger,
-                nameof(EditAsync),
-                TimeTemplateLogger
+                nameof(EditAsync)
             );
         }
 
         /// <inheritdoc />
-        public Task<IReadOnlyCollection<Product>> GetAllAsync()
+        public async Task<IReadOnlyCollection<Product>> GetAllAsync()
         {
-            return StopwatchWrapper.MeasureExecutionTimeAsync(
+            return await StopwatchWrapper.MeasureExecutionTimeAsync(
                 () => productStorage.GetAllAsync(),
                 logger,
-                nameof(GetAllAsync),
-                TimeTemplateLogger
+                nameof(GetAllAsync)
             );
         }
 
         /// <inheritdoc />
         public async Task<IProductStats> GetStatsAsync()
         {
-            var product = await StopwatchWrapper.MeasureExecutionTimeAsync(
-                () => productStorage.GetAllAsync(),
+            return await StopwatchWrapper.MeasureExecutionTimeAsync(
+                async () =>
+                {
+                    var product = await productStorage.GetAllAsync();
+                    return new ProductStatsModel
+                    {
+                        TotalAmount = product.Count,
+                        FullPriceNoNds = product.Select(x => x.Quantity * x.Price).Sum(),
+                        FullPriceWithNds = product.Select(x => x.Quantity * x.Price).Sum() * 1.2m,
+                    };
+                },
                 logger,
-                nameof(GetStatsAsync),
-                TimeTemplateLogger
+                nameof(GetStatsAsync)
             );
-
-            return new ProductStatsModel
-            {
-                TotalAmount = product.Count,
-                FullPriceNoNds = product.Select(x => x.Quantity * x.Price).Sum(),
-                FullPriceWithNds = product.Select(x => x.Quantity * x.Price).Sum() * 1.2m,
-            };
         }
     }
 }

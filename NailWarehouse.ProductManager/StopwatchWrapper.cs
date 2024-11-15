@@ -5,25 +5,24 @@ namespace NailWarehouse.ProductManager
 {
     public static class StopwatchWrapper
     {
-        private const string DefaultTimeLogTemplate = "{Operation} executing in {Time}";
-        private const string DefaultOperationName = "Operation";
+        private const string DefaultTimeLogTemplate = "{Operation} выполнилась за {ElapsedMilliseconds} мс";
+        private const string DefaultOperationName = "Операция";
 
         /// <summary>
         /// Измеряет время выполнения асинхронной операции
-        /// и регистрирует его продолжительность.
+        /// и регистрирует ее продолжительность.
         /// </summary>
         public static async Task<T> MeasureExecutionTimeAsync<T>(
             Func<Task<T>> func,
             ILogger logger,
-            string operationName = DefaultOperationName,
-            string logTemplate = DefaultTimeLogTemplate
+            string operationName = DefaultOperationName
         )
         {
             var stopwatch = Stopwatch.StartNew();
             var result = await func();
             stopwatch.Stop();
 
-            logger?.LogInformation(logTemplate, operationName, stopwatch.ElapsedMilliseconds);
+            logger.LogInformation(DefaultTimeLogTemplate, operationName, stopwatch.ElapsedMilliseconds);
 
             return result;
         }
@@ -32,15 +31,14 @@ namespace NailWarehouse.ProductManager
         public static async Task MeasureExecutionTimeAsync(
             Func<Task> func,
             ILogger logger,
-            string operationName = DefaultOperationName,
-            string logTemplate = DefaultTimeLogTemplate
+            string operationName = DefaultOperationName
         )
         {
             var stopwatch = Stopwatch.StartNew();
             await func();
             stopwatch.Stop();
 
-            logger.LogInformation(logTemplate, operationName, stopwatch.ElapsedMilliseconds);
+            logger.LogInformation(DefaultTimeLogTemplate, operationName, stopwatch.ElapsedMilliseconds);
         }
     }
 }
