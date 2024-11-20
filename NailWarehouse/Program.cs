@@ -1,11 +1,15 @@
+using System.Configuration;
+using Microsoft.EntityFrameworkCore;
+using NailWarehouse.Forms;
 using NailWarehouse.ProductManager;
+using NailWarehouse.Storage.Database;
 using NailWarehouse.Storage.Memory;
 using Serilog;
 using Serilog.Extensions.Logging;
 
 namespace NailWarehouse
 {
-    internal static class Program
+    static internal class Program
     {
         /// <summary>
         ///  The main entry point for the application.
@@ -24,7 +28,7 @@ namespace NailWarehouse
             var logger = new SerilogLoggerFactory(serilogLogger)
                 .CreateLogger(nameof(ProductsManager));
 
-            var storage = new MemoryProductStorage();
+            var storage = new ProductStorage();
             var manager = new ProductsManager(storage, logger);
             Application.Run(new MainForm(manager));
         }

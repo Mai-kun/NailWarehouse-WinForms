@@ -34,18 +34,18 @@ namespace NailWarehouse.Storage.Memory
         }
 
         /// <inheritdoc />
-        public Task EditAsync(Product product)
+        public Task EditAsync(Product newProduct)
         {
-            var target = this.product.FirstOrDefault(x => x.Id == product.Id);
+            var target = this.product.FirstOrDefault(x => x.Id == newProduct.Id);
             if (target != null)
             {
-                target.Id = product.Id;
-                target.Name = product.Name;
-                target.Size = product.Size;
-                target.Material = product.Material;
-                target.Quantity = product.Quantity;
-                target.MinimumQuantity = product.MinimumQuantity;
-                target.Price = product.Price;
+                target.Id = newProduct.Id;
+                target.Name = newProduct.Name;
+                target.Size = newProduct.Size;
+                target.Material = newProduct.Material;
+                target.Quantity = newProduct.Quantity;
+                target.MinimumQuantity = newProduct.MinimumQuantity;
+                target.Price = newProduct.Price;
             }
 
             return Task.CompletedTask;

@@ -3,7 +3,7 @@
 namespace NailWarehouse.Contracts
 {
     /// <summary>
-    /// Изменение хранилища продуктов
+    /// Фукнционал для работа с хранилищем продуктов
     /// </summary>
     public interface IProductStorage
     {
@@ -20,7 +20,7 @@ namespace NailWarehouse.Contracts
         /// <summary>
         /// Изменение данных
         /// </summary>
-        Task EditAsync(Product product);
+        Task EditAsync(Product newProduct);
 
         /// <summary>
         /// Удаление данных

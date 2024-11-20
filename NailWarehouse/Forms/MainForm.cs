@@ -1,13 +1,12 @@
 using NailWarehouse.Contracts;
 using NailWarehouse.Contracts.Models;
-using NailWarehouse.Forms;
 
-namespace NailWarehouse
+namespace NailWarehouse.Forms
 {
     public partial class MainForm : Form
     {
-        private IProductManager productManager;
         private readonly BindingSource bindingSource;
+        private readonly IProductManager productManager;
 
         public MainForm(IProductManager manager)
         {
@@ -22,12 +21,14 @@ namespace NailWarehouse
         private async void TSBAdd_Click(object sender, EventArgs e)
         {
             using var editForm = new ProductForm();
-            if (editForm.ShowDialog() == DialogResult.OK)
+            if (editForm.ShowDialog() != DialogResult.OK)
             {
-                await productManager.AddAsync(editForm.Product);
-                bindingSource.ResetBindings(false);
-                await UpdateStatusStrip();
+                return;
             }
+
+            await productManager.AddAsync(editForm.Product);
+            bindingSource.ResetBindings(false);
+            await UpdateStatusStrip();
         }
 
         private async void TSBDelete_Click(object sender, EventArgs e)
@@ -37,10 +38,10 @@ namespace NailWarehouse
                 var oldProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
 
                 if (MessageBox.Show(
-                    $"Вы хотите удалить товар \"{oldProduct.Name}\"?",
-                    "Внимание",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning
+                        $"Вы хотите удалить товар \"{oldProduct.Name}\"?",
+                        "Внимание",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Warning
                     ) == DialogResult.OK)
                 {
                     await productManager.DeleteAsync(oldProduct.Id);
@@ -59,10 +60,10 @@ namespace NailWarehouse
                 using var editForm = new ProductForm(oldProduct);
 
                 if (MessageBox.Show(
-                    $"Вы хотите изменить товар \"{oldProduct.Name}\"?",
-                    "Внимание",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Information
+                        $"Вы хотите изменить товар \"{oldProduct.Name}\"?",
+                        "Внимание",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Information
                     ) == DialogResult.OK)
                 {
                     if (editForm.ShowDialog() == DialogResult.OK)
@@ -100,9 +101,6 @@ namespace NailWarehouse
             dataGridView1.Columns[nameof(Product.Id)].Visible = false;
         }
 
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Close();
     }
 }

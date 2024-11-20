@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NailWarehouse.Contracts\NailWarehouse.Contracts.csproj" />
     <ProjectReference Include="..\NailWarehouse.ProductManager\NailWarehouse.ProductManager.csproj" />
+    <ProjectReference Include="..\NailWarehouse.Storage.Database\NailWarehouse.Storage.Database.csproj" />
   </ItemGroup>
 
   <ItemGroup>
