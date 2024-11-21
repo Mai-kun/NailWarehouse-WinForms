@@ -12,7 +12,7 @@ namespace NailWarehouse.Forms
             InitializeComponent();
             InitializeComboBox();
 
-            Product = oldProduct?.Clone() ?? new Product()
+            Product = oldProduct?.Clone() ?? new Product
             {
                 Id = Guid.NewGuid(),
                 Name = "",

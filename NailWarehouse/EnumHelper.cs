@@ -6,7 +6,7 @@ namespace NailWarehouse
     public static class EnumHelper
     {
         /// <summary>
-        /// Получение всех атрибутов описания (descriptions)
+        /// Получает все атрибуты описания (descriptions)
         /// </summary>
         public static IEnumerable<string> GetEnumDescriptions(Type type)
         {
@@ -19,7 +19,7 @@ namespace NailWarehouse
         }
 
         /// <summary>
-        /// Получение атрибута описания из Enum по одному из свойств
+        /// Получает атрибут описания из Enum по одному из свойств
         /// </summary>
         public static string GetEnumDescription(Enum value)
         {

@@ -10,12 +10,7 @@ namespace NailWarehouse.Storage.Memory.Tests
     /// </summary>
     public class MemoryProductStorageTests
     {
-        private readonly IProductStorage productStorage;
-
-        public MemoryProductStorageTests()
-        {
-            productStorage = new MemoryProductStorage();
-        }
+        private readonly IProductStorage productStorage = new MemoryProductStorage();
 
         /// <summary>
         /// Добавление товара происходит корректно

@@ -27,7 +27,7 @@ namespace NailWarehouse.ProductManager
             return result;
         }
 
-        /// <inheritdoc cref="MeasureExecutionTimeAsync{T}(Func{Task{T}}, ILogger, string, string)"/>
+        /// <inheritdoc cref="MeasureExecutionTimeAsync{T}(Func{Task{T}}, ILogger, string)"/>
         public static async Task MeasureExecutionTimeAsync(
             Func<Task> func,
             ILogger logger,

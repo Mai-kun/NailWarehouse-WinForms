@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Contracts.Models;
 
 namespace NailWarehouse.Storage.Database
