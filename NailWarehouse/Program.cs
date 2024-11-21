@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Forms;
 using NailWarehouse.ProductManager;
 using NailWarehouse.Storage.Database;
-using NailWarehouse.Storage.Memory;
 using Serilog;
 using Serilog.Extensions.Logging;
 

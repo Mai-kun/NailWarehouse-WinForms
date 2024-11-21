@@ -18,61 +18,73 @@ namespace NailWarehouse.Forms
             dataGridView1.DataSource = bindingSource;
         }
 
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            await LoadProducts();
+            dataGridView1.Columns.Add("TotalPrice", "Общая цена");
+            dataGridView1.Columns[nameof(Product.Id)].Visible = false;
+        }
+
+        private async Task LoadProducts()
+        {
+            bindingSource.DataSource = await productManager.GetAllAsync();
+            bindingSource.ResetBindings(false);
+        }
+
         private async void TSBAdd_Click(object sender, EventArgs e)
         {
-            using var editForm = new ProductForm();
-            if (editForm.ShowDialog() != DialogResult.OK)
+            using var productForm = new ProductForm();
+            if (productForm.ShowDialog() == DialogResult.OK)
             {
-                return;
+                await productManager.AddAsync(productForm.Product);
+                await Task.WhenAny(LoadProducts(), UpdateStatusStrip());
             }
-
-            await productManager.AddAsync(editForm.Product);
-            bindingSource.ResetBindings(false);
-            await UpdateStatusStrip();
         }
 
         private async void TSBDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            if (dataGridView1.CurrentRow == null)
             {
-                var oldProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
+                return;
+            }
 
-                if (MessageBox.Show(
-                        $"Вы хотите удалить товар \"{oldProduct.Name}\"?",
-                        "Внимание",
-                        MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Warning
-                    ) == DialogResult.OK)
-                {
-                    await productManager.DeleteAsync(oldProduct.Id);
-                    bindingSource.ResetBindings(false);
-                    await UpdateStatusStrip();
-                }
+            var oldProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
+
+            if (MessageBox.Show(
+                    $"Вы хотите удалить товар \"{oldProduct.Name}\"?",
+                    "Внимание",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning
+                ) == DialogResult.OK)
+            {
+                await productManager.DeleteAsync(oldProduct.Id);
+                await Task.WhenAny(LoadProducts(), UpdateStatusStrip());
             }
         }
 
         private async void TSBChange_ClickAsync(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            if (dataGridView1.CurrentRow == null)
             {
-                var oldProduct = (Product)dataGridView1.CurrentRow.DataBoundItem;
+                return;
+            }
 
-                using var editForm = new ProductForm(oldProduct);
+            var oldProduct = dataGridView1.CurrentRow.DataBoundItem as Product;
+            if (MessageBox.Show(
+                    $"Вы хотите изменить товар \"{oldProduct?.Name}\"?",
+                    "Внимание",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information
+                ) != DialogResult.OK)
+            {
+                return;
+            }
 
-                if (MessageBox.Show(
-                        $"Вы хотите изменить товар \"{oldProduct.Name}\"?",
-                        "Внимание",
-                        MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Information
-                    ) == DialogResult.OK)
-                {
-                    if (editForm.ShowDialog() == DialogResult.OK)
-                    {
-                        await productManager.EditAsync(editForm.Product);
-                        bindingSource.ResetBindings(false);
-                        await UpdateStatusStrip();
-                    }
-                }
+            using var editForm = new ProductForm(oldProduct);
+            if (editForm.ShowDialog() == DialogResult.OK)
+            {
+                await productManager.EditAsync(editForm.Product);
+                await Task.WhenAny(LoadProducts(), UpdateStatusStrip());
             }
         }
 
@@ -88,19 +100,12 @@ namespace NailWarehouse.Forms
         {
             if (dataGridView1.Columns[e.ColumnIndex].Name == "TotalPrice")
             {
-                var row = (Product)dataGridView1.Rows[e.RowIndex].DataBoundItem;
-                e.Value = row.Quantity * row.Price;
+                var row = dataGridView1.Rows[e.RowIndex].DataBoundItem as Product;
+                e.Value = row?.Quantity * row?.Price;
             }
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            bindingSource.DataSource = await productManager.GetAllAsync();
-            await UpdateStatusStrip();
-            dataGridView1.Columns.Add("TotalPrice", "Общая цена");
-            dataGridView1.Columns[nameof(Product.Id)].Visible = false;
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+            => Close();
     }
 }

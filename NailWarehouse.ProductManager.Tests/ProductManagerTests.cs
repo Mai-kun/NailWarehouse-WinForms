@@ -18,12 +18,12 @@ namespace NailWarehouse.ProductManager.Tests
             productStorageMock = new Mock<IProductStorage>();
             loggerMock = new Mock<ILogger<ProductsManager>>();
             loggerMock.Setup(x => x.Log(
-                    It.IsAny<LogLevel>(),
-                    It.IsAny<EventId>(),
-                    It.IsAny<It.IsAnyType>(),
-                    It.IsAny<Exception>(),
-                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
-                ));
+                It.IsAny<LogLevel>(),
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                It.IsAny<Exception>(),
+                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
+            ));
 
             productManager = new ProductsManager(productStorageMock.Object, loggerMock.Object);
         }
