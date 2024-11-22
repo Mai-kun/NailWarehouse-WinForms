@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Contracts.Models;
 
-namespace NailWarehouse.Storage.Database
+namespace NailWarehouse.Database
 {
     public class NailWarehouseDbContext : DbContext
     {

@@ -2,7 +2,7 @@ using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Forms;
 using NailWarehouse.ProductManager;
-using NailWarehouse.Storage.Database;
+using NailWarehouse.Database;
 using Serilog;
 using Serilog.Extensions.Logging;
 

@@ -2,7 +2,7 @@
 using NailWarehouse.Contracts;
 using NailWarehouse.Contracts.Models;
 
-namespace NailWarehouse.Storage.Database
+namespace NailWarehouse.Database
 {
     /// <inheritdoc cref="IProductStorage"/>
     public class ProductStorage : IProductStorage
