@@ -7,7 +7,7 @@ namespace NailWarehouse.Database
     /// <inheritdoc cref="IProductStorage"/>
     public class ProductStorage : IProductStorage
     {
-        public async Task<Product> AddAsync(Product product)
+        async Task<Product> IProductStorage.AddAsync(Product product)
         {
             using var context = new NailWarehouseDbContext();
             await context.AddAsync(product);
@@ -15,7 +15,7 @@ namespace NailWarehouse.Database
             return product;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        async Task<bool> IProductStorage.DeleteAsync(Guid id)
         {
             using var context = new NailWarehouseDbContext();
             var products = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
@@ -29,7 +29,7 @@ namespace NailWarehouse.Database
             return true;
         }
 
-        public async Task EditAsync(Product newProduct)
+        async Task IProductStorage.EditAsync(Product newProduct)
         {
             using var context = new NailWarehouseDbContext();
             var product = await context.Products.FirstOrDefaultAsync(p => p.Id == newProduct.Id);
@@ -37,6 +37,7 @@ namespace NailWarehouse.Database
             {
                 return;
             }
+
             product.Name = newProduct.Name;
             product.Size = newProduct.Size;
             product.Material = newProduct.Material;
@@ -46,7 +47,7 @@ namespace NailWarehouse.Database
             await context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyCollection<Product>> GetAllAsync()
+        async Task<IReadOnlyCollection<Product>> IProductStorage.GetAllAsync()
         {
             using var context = new NailWarehouseDbContext();
             var products = await context.Products
