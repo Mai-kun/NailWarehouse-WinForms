@@ -1,5 +1,5 @@
 ﻿
-namespace NailWarehouse
+namespace NailWarehouse.Forms
 {
     partial class MainForm
     {

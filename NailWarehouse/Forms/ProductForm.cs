@@ -5,29 +5,27 @@ namespace NailWarehouse.Forms
 {
     public partial class ProductForm : Form
     {
-        private readonly Product product;
+        public Product Product { get; }
 
-        public ProductForm(Product oldProduct = null)
+        public ProductForm(Product? oldProduct = null)
         {
             InitializeComponent();
             InitializeComboBox();
 
-            product = oldProduct ?? new Product()
+            Product = oldProduct?.Clone() ?? new Product
             {
                 Id = Guid.NewGuid(),
                 Name = "",
                 Material = EnumHelper.GetEnumDescription(Materials.Copper),
             };
 
-            tbName.AddBinding(control => control.Text, product, product => product.Name, errorProvider1);
-            numSize.AddBinding(control => control.Value, product, product => product.Size, errorProvider1);
-            cbMaterials.AddBinding(control => control.SelectedItem, product, product => product.Material);
-            numQuantity.AddBinding(control => control.Value, product, product => product.Quantity, errorProvider1);
-            numMinimumQuantity.AddBinding(control => control.Value, product, product => product.MinimumQuantity, errorProvider1);
-            numPrice.AddBinding(control => control.Value, product, product => product.Price, errorProvider1);
+            tbName.AddBinding(control => control.Text, Product, product => product.Name, errorProvider1);
+            numSize.AddBinding(control => control.Value, Product, product => product.Size, errorProvider1);
+            cbMaterials.AddBinding(control => control.SelectedItem, Product, product => product.Material);
+            numQuantity.AddBinding(control => control.Value, Product, product => product.Quantity, errorProvider1);
+            numMinimumQuantity.AddBinding(control => control.Value, Product, product => product.MinimumQuantity, errorProvider1);
+            numPrice.AddBinding(control => control.Value, Product, product => product.Price, errorProvider1);
         }
-
-        public Product Product => product;
 
         private void InitializeComboBox()
         {
@@ -36,14 +34,16 @@ namespace NailWarehouse.Forms
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            var context = new ValidationContext(product);
+            var context = new ValidationContext(Product);
             var results = new List<ValidationResult>();
 
-            if (Validator.TryValidateObject(product, context, results, validateAllProperties: true))
+            if (!Validator.TryValidateObject(Product, context, results, validateAllProperties: true))
             {
-                DialogResult = DialogResult.OK;
-                Close();
+                return;
             }
+
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

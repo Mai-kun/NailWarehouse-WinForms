@@ -13,7 +13,7 @@ namespace NailWarehouse
             Expression<Func<TControl, object>> targetProperty,
             TSource source,
             Expression<Func<TSource, object>> sourceProperty,
-            ErrorProvider errorProvider = null)
+            ErrorProvider? errorProvider = null)
             where TControl : Control
             where TSource : class
         {
@@ -21,7 +21,7 @@ namespace NailWarehouse
             var sourceName = GetMemberName(sourceProperty);
 
             target.DataBindings.Add(new Binding(targetName, source, sourceName,
-            false,
+                false,
                 DataSourceUpdateMode.OnPropertyChanged));
 
             if (errorProvider != null)
@@ -35,12 +35,14 @@ namespace NailWarehouse
                         var context = new ValidationContext(source);
                         var results = new List<ValidationResult>();
                         errorProvider.SetError(target, string.Empty);
-                        if (!Validator.TryValidateObject(source, context, results, validateAllProperties: true))
+                        if (Validator.TryValidateObject(source, context, results, validateAllProperties: true))
                         {
-                            foreach (var error in results.Where(x => x.MemberNames.Contains(sourceName)))
-                            {
-                                errorProvider.SetError(target, error.ErrorMessage);
-                            }
+                            return;
+                        }
+
+                        foreach (var error in results.Where(x => x.MemberNames.Contains(sourceName)))
+                        {
+                            errorProvider.SetError(target, error.ErrorMessage);
                         }
                     };
                 }

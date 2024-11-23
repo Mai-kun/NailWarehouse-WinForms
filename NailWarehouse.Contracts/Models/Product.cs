@@ -48,5 +48,13 @@ namespace NailWarehouse.Contracts.Models
         [DisplayName("Цена")]
         [Range(0d, double.MaxValue)]
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Создает новый объект, который является копией текущего экземпляра
+        /// </summary>
+        public Product Clone()
+        {
+            return (Product)MemberwiseClone();
+        }
     }
 }

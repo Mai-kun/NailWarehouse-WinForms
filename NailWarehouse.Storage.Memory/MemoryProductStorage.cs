@@ -6,27 +6,27 @@ namespace NailWarehouse.Storage.Memory
     /// <inheritdoc cref="IProductStorage"/>
     public class MemoryProductStorage : IProductStorage
     {
-        private readonly List<Product> product;
+        private readonly List<Product> products;
 
         public MemoryProductStorage()
         {
-            product = new List<Product>();
+            products = new List<Product>();
         }
 
         /// <inheritdoc />
         public Task<Product> AddAsync(Product product)
         {
-            this.product.Add(product);
+            this.products.Add(product);
             return Task.FromResult(product);
         }
 
         /// <inheritdoc />
         public Task<bool> DeleteAsync(Guid id)
         {
-            var product = this.product.FirstOrDefault(x => x.Id == id);
+            var product = this.products.FirstOrDefault(x => x.Id == id);
             if (product != null)
             {
-                this.product.Remove(product);
+                this.products.Remove(product);
                 return Task.FromResult(true);
             }
 
@@ -34,18 +34,18 @@ namespace NailWarehouse.Storage.Memory
         }
 
         /// <inheritdoc />
-        public Task EditAsync(Product product)
+        public Task EditAsync(Product newProduct)
         {
-            var target = this.product.FirstOrDefault(x => x.Id == product.Id);
+            var target = this.products.FirstOrDefault(x => x.Id == newProduct.Id);
             if (target != null)
             {
-                target.Id = product.Id;
-                target.Name = product.Name;
-                target.Size = product.Size;
-                target.Material = product.Material;
-                target.Quantity = product.Quantity;
-                target.MinimumQuantity = product.MinimumQuantity;
-                target.Price = product.Price;
+                target.Id = newProduct.Id;
+                target.Name = newProduct.Name;
+                target.Size = newProduct.Size;
+                target.Material = newProduct.Material;
+                target.Quantity = newProduct.Quantity;
+                target.MinimumQuantity = newProduct.MinimumQuantity;
+                target.Price = newProduct.Price;
             }
 
             return Task.CompletedTask;
@@ -54,7 +54,7 @@ namespace NailWarehouse.Storage.Memory
         /// <inheritdoc />
         public Task<IReadOnlyCollection<Product>> GetAllAsync()
         {
-            return Task.FromResult<IReadOnlyCollection<Product>>(product);
+            return Task.FromResult<IReadOnlyCollection<Product>>(products);
         }
     }
 }
