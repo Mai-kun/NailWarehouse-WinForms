@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.ProductManage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.Database", "NailWarehouse.Database\NailWarehouse.Database.csproj", "{4B07B9CD-45DD-4C29-844E-F10309D516BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApplication\WebApp.csproj", "{A2138575-80E9-49FA-877C-967D6BA00DB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NailWarehouse.WebApplication", "WebApplication\NailWarehouse.WebApplication.csproj", "{A2138575-80E9-49FA-877C-967D6BA00DB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

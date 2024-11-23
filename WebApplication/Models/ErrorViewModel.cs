@@ -1,4 +1,4 @@
-namespace WebApp.Models
+namespace NailWarehouse.WebApplication.Models
 {
     public class ErrorViewModel
     {

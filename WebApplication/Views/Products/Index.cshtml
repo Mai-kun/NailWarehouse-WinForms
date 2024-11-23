@@ -1,0 +1,53 @@
+﻿@using NailWarehouse.Contracts.Models;
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Список продуктов";
+}
+
+<h2>Список продуктов</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Добавить новый продукт</a>
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Размер</th>
+        <th>Материал</th>
+        <th>Количество</th>
+        <th>Минимальное количество</th>
+        <th>Цена</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>@product.Name</td>
+            <td>@product.Size</td>
+            <td>@product.Material</td>
+            <td>@product.Quantity</td>
+            <td>@product.MinimumQuantity</td>
+            <td>@product.Price</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning"
+                   onclick="return confirm('Вы уверены, что хотите изменить этот продукт?');">Изменить
+                </a>
+
+                <form asp-action="Delete" asp-route-id="@product.Id" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Вы уверены, что хотите удалить этот продукт?');">Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
