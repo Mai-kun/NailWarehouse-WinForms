@@ -11,7 +11,7 @@ namespace NailWarehouse.Contracts.Models
         /// Наименование товара
         /// </summary>
         [DisplayName("Имя")]
-        [Required]
+        [Required(ErrorMessage = "Введите имя товара")]
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 

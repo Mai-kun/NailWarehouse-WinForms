@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using NailWarehouse.Database;
+
 namespace WebApp.Web
 {
     public class Program
@@ -8,6 +11,11 @@ namespace WebApp.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<NailWarehouseDbContext>
+            (
+                options =>
+                    options.UseSqlServer("Server=localhost;Database=DataGridView;Trusted_Connection=True;")
+            );
 
             var app = builder.Build();
 

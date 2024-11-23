@@ -7,7 +7,7 @@
 
 <h2>Создать новый товар</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="ProductForm" method="post">
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -44,7 +44,8 @@
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Сохранить товар</button>
+    <button type="submit" class="btn btn-primary"
+        style="margin-top: 15px">Сохранить товар</button>
 </form>
 
 @section Scripts {

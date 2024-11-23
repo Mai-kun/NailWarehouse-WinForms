@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.ObjectModelRemoting;
+using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Contracts.Models;
+using NailWarehouse.Database;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -8,15 +11,18 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly List<Product> products = new();
+        private readonly NailWarehouseDbContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+            NailWarehouseDbContext context)
         {
             this.logger = logger;
+            this.context = context;
         }
 
         public IActionResult Index()
         {
+            var products = context.Products.ToList();
             return View(products);
         }
 
@@ -26,16 +32,29 @@ namespace WebApp.Controllers
             return View();
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult ProductForm(Product product)
         {
             if (ModelState.IsValid)
             {
-                // Здесь можно добавить код для сохранения продукта в базу данных
-                return RedirectToAction("Index");
+                product.Id = Guid.NewGuid();
+                context.Products.Add(product);
+                context.SaveChanges();
+                return RedirectToAction(nameof(Index));
             }
-
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult ProductForm(Guid id)
+        {
+            var product = context.Products.FirstOrDefault(x => x.Id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         public IActionResult Privacy()
