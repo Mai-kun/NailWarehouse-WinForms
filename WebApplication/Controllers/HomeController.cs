@@ -1,20 +1,40 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication.Models;
+using NailWarehouse.Contracts.Models;
+using WebApp.Models;
 
-namespace WebApplication.Controllers
+namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly List<Product> products = new();
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         public IActionResult Index()
         {
+            return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult ProductForm()
+        {
+            return View();
+        }
+
+        [HttpPut]
+        public IActionResult ProductForm(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                // Здесь можно добавить код для сохранения продукта в базу данных
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
