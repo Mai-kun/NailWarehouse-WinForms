@@ -45,18 +45,6 @@ namespace WebApp.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult ProductForm(Guid id)
-        {
-            var product = context.Products.FirstOrDefault(x => x.Id == id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
-        }
-
         public IActionResult Privacy()
         {
             return View();
