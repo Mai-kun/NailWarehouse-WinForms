@@ -7,7 +7,7 @@ namespace NailWarehouse.Database
     public class NailWarehouseDbContext : DbContext
     {
         public NailWarehouseDbContext()
-            : base(GetOptions("Server=localhost;Database=DataGridView;Trusted_Connection=True;")) { }
+            : base(GetOptions("Server=.;Database=DataGridView;Trusted_Connection=True;")) { }
 
         private static DbContextOptions GetOptions(string connectionString)
         {

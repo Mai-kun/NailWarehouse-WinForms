@@ -19,6 +19,7 @@
         <th>Количество</th>
         <th>Минимальное количество</th>
         <th>Цена</th>
+        <th>Общая цена</th>
         <th>Действия</th>
     </tr>
     </thead>
@@ -32,6 +33,7 @@
             <td>@product.Quantity</td>
             <td>@product.MinimumQuantity</td>
             <td>@product.Price</td>
+            <td>@(product.Price * product.Quantity)</td>
             <td>
                 <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning"
                    onclick="return confirm('Вы уверены, что хотите изменить этот продукт?');">Изменить
@@ -47,6 +49,22 @@
     }
     </tbody>
 </table>
+
+<div class="row bg-light p-2">
+    <div class="col d-flex justify-content-between">
+        <span>Количество товаров:</span>
+        <strong>@ViewData[nameof(IProductStats.TotalAmount)]</strong>
+    </div>
+    <div class="col d-flex justify-content-between">
+        <span>Цена с НДС:</span>
+        <strong>@ViewData[nameof(IProductStats.FullPriceWithNds)]</strong>
+    </div>
+    <div class="col d-flex justify-content-between">
+        <span>Цена без НДС:</span>
+        <strong>@ViewData[nameof(IProductStats.FullPriceNoNds)]</strong>
+    </div>
+</div>
+
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

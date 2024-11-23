@@ -1,5 +1,3 @@
-using System.Configuration;
-using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Forms;
 using NailWarehouse.ProductManager;
 using NailWarehouse.Database;

@@ -22,7 +22,7 @@
 
     <div class="form-group">
         <label asp-for="Material"></label>
-        <input asp-for="Material" class="form-control" />
+        <select asp-for="Material" class="form-control" asp-items="@(EnumHelper.GetEnumDescriptions(typeof(Materials)))"></select>
         <span asp-validation-for="Material" class="text-danger"></span>
     </div>
 

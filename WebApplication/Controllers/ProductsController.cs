@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using NailWarehouse.Contracts;
 using NailWarehouse.Contracts.Models;
 using NailWarehouse.Database;
 
@@ -7,20 +7,23 @@ namespace NailWarehouse.WebApplication.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ILogger<ProductsController> logger;
-        private readonly NailWarehouseDbContext context;
+        private readonly IProductManager productManager;
 
-        public ProductsController(ILogger<ProductsController> logger,
-            NailWarehouseDbContext context)
+        public ProductsController(IProductManager productManager, NailWarehouseDbContext context)
         {
-            this.logger = logger;
-            this.context = context;
+            this.productManager = productManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            var products = await context.Products.ToListAsync();
-            return View(products);
+            var products = productManager.GetAllAsync();
+            var stats = productManager.GetStatsAsync();
+            await Task.WhenAll(products, stats);
+
+            ViewData[nameof(IProductStats.TotalAmount)] = stats.Result.TotalAmount;
+            ViewData[nameof(IProductStats.FullPriceNoNds)] = stats.Result.FullPriceNoNds;
+            ViewData[nameof(IProductStats.FullPriceWithNds)] = stats.Result.FullPriceWithNds;
+            return View(products.Result);
         }
 
         public IActionResult Create()
@@ -37,14 +40,14 @@ namespace NailWarehouse.WebApplication.Controllers
             }
 
             product.Id = Guid.NewGuid();
-            await context.Products.AddAsync(product);
-            await context.SaveChangesAsync();
+            await productManager.AddAsync(product);
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(Guid id)
         {
-            var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var products = await productManager.GetAllAsync();
+            var product = products.FirstOrDefault(p => p.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -61,28 +64,25 @@ namespace NailWarehouse.WebApplication.Controllers
                 return View(product);
             }
 
-            var existingProduct = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var products = await productManager.GetAllAsync();
+            var existingProduct = products.FirstOrDefault(p => p.Id == id);
             if (existingProduct == null)
             {
                 return NotFound();
             }
 
-            context.Entry(existingProduct).CurrentValues.SetValues(product);
-            await context.SaveChangesAsync();
-
+            await productManager.EditAsync(product);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            if (product != null)
+            var result = await productManager.DeleteAsync(id);
+            if (result == false)
             {
-                context.Products.Remove(product);
-                await context.SaveChangesAsync();
+                return NotFound();
             }
-
             return RedirectToAction(nameof(Index));
         }
 

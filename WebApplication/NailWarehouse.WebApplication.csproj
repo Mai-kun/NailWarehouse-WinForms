@@ -13,6 +13,13 @@
   <ItemGroup>
     <ProjectReference Include="..\NailWarehouse.Contracts\NailWarehouse.Contracts.csproj" />
     <ProjectReference Include="..\NailWarehouse.Database\NailWarehouse.Database.csproj" />
+    <ProjectReference Include="..\NailWarehouse.ProductManager\NailWarehouse.ProductManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
   </ItemGroup>
 
 </Project>

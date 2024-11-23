@@ -1,10 +1,11 @@
-using System.Configuration;
+using NailWarehouse.Contracts;
 using NailWarehouse.Database;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
+using NailWarehouse.ProductManager;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace NailWarehouse.WebApplication
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -13,6 +14,10 @@ namespace NailWarehouse.WebApplication
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<NailWarehouseDbContext>();
+
+            builder.Services.AddSingleton<ILogger, Logger<ProductsManager>>();
+            builder.Services.AddSingleton<IProductStorage, ProductStorage>();
+            builder.Services.AddScoped<IProductManager, ProductsManager>();
 
             var app = builder.Build();
 
