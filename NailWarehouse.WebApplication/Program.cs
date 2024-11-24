@@ -1,7 +1,7 @@
 using NailWarehouse.Contracts;
 using NailWarehouse.Database;
 using NailWarehouse.ProductManager;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Serilog;
 
 namespace NailWarehouse.WebApplication
 {
@@ -9,15 +9,19 @@ namespace NailWarehouse.WebApplication
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Seq("http://localhost:5341", apiKey: "P9byCpl4ZvC3z60Acp4l")
+                .CreateLogger();
+
             var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<NailWarehouseDbContext>();
 
-            builder.Services.AddSingleton<ILogger, Logger<ProductsManager>>();
             builder.Services.AddSingleton<IProductStorage, ProductStorage>();
             builder.Services.AddScoped<IProductManager, ProductsManager>();
+            builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
             var app = builder.Build();
 
