@@ -13,6 +13,9 @@ namespace NailWarehouse.WebApplication.Controllers
             this.productManager = productManager;
         }
 
+        /// <summary>
+        /// Отображает список всех продуктов.
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var products = productManager.GetAllAsync();
@@ -23,11 +26,17 @@ namespace NailWarehouse.WebApplication.Controllers
             return View(products.Result);
         }
 
+        /// <summary>
+        /// Отображает страницу создания нового продукта.
+        /// </summary>
         public IActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// Обрабатывает создание нового продукта.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
@@ -41,6 +50,9 @@ namespace NailWarehouse.WebApplication.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Отображает страницу редактирования продукта по его идентификатору.
+        /// </summary>
         public async Task<IActionResult> Edit(Guid id)
         {
             var products = await productManager.GetAllAsync();
@@ -53,6 +65,9 @@ namespace NailWarehouse.WebApplication.Controllers
             return View(product);
         }
 
+        /// <summary>
+        /// Обрабатывает редактирование существующего продукта.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Edit(Guid id, Product product)
         {
@@ -72,6 +87,9 @@ namespace NailWarehouse.WebApplication.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Обрабатывает удаление продукта по его идентификатору.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -83,6 +101,9 @@ namespace NailWarehouse.WebApplication.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Отображает страницу конфиденциальности.
+        /// </summary>
         public IActionResult Privacy()
         {
             return View();
