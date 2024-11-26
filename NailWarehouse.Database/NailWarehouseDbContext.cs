@@ -1,17 +1,13 @@
-﻿using System.Configuration;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Contracts.Models;
 
 namespace NailWarehouse.Database
 {
     public class NailWarehouseDbContext : DbContext
     {
-        public NailWarehouseDbContext()
-            : base(GetOptions("Server=.;Database=DataGridView;Trusted_Connection=True;")) { }
-
-        private static DbContextOptions GetOptions(string connectionString)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            return new DbContextOptionsBuilder().UseSqlServer(connectionString).Options;
+            optionsBuilder.UseSqlServer("Server=.;Database=DataGridView;Trusted_Connection=True;");
         }
 
         public DbSet<Product> Products { get; set; }
