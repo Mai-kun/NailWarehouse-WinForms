@@ -1,7 +1,8 @@
 ﻿@using NailWarehouse.Contracts.Models;
-@model IEnumerable<Product>
+@model IReadOnlyCollection<Product>
 @{
     ViewData["Title"] = "Список продуктов";
+    var stats = ViewData[nameof(IProductStats)] as IProductStats;
 }
 
 <h2>Список продуктов</h2>
@@ -53,15 +54,15 @@
 <div class="row bg-light p-2">
     <div class="col d-flex justify-content-between">
         <span>Количество товаров:</span>
-        <strong class="m-auto">@ViewData[nameof(IProductStats.TotalAmount)]</strong>
+        <strong class="m-auto">@stats?.TotalAmount</strong>
     </div>
     <div class="col d-flex justify-content-between">
         <span>Цена с НДС:</span>
-        <strong class="m-auto">@ViewData[nameof(IProductStats.FullPriceWithNds)]</strong>
+        <strong class="m-auto">@stats?.FullPriceWithNds</strong>
     </div>
     <div class="col d-flex justify-content-between">
         <span>Цена без НДС:</span>
-        <strong class="m-auto">@ViewData[nameof(IProductStats.FullPriceNoNds)]</strong>
+        <strong class="m-auto">@stats?.FullPriceNoNds</strong>
     </div>
 </div>
 

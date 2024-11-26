@@ -17,7 +17,6 @@ namespace NailWarehouse.WebApplication
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<NailWarehouseDbContext>();
 
             builder.Services.AddSingleton<IProductStorage, ProductStorage>();
             builder.Services.AddScoped<IProductManager, ProductsManager>();
@@ -29,7 +28,6 @@ namespace NailWarehouse.WebApplication
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -41,8 +39,8 @@ namespace NailWarehouse.WebApplication
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Products}/{action=Index}/{id?}");
+                "default",
+                "{controller=Products}/{action=Index}/{id?}");
 
             app.Run();
         }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NailWarehouse.Contracts;
 using NailWarehouse.Contracts.Models;
-using NailWarehouse.Database;
 
 namespace NailWarehouse.WebApplication.Controllers
 {
@@ -9,7 +8,7 @@ namespace NailWarehouse.WebApplication.Controllers
     {
         private readonly IProductManager productManager;
 
-        public ProductsController(IProductManager productManager, NailWarehouseDbContext context)
+        public ProductsController(IProductManager productManager)
         {
             this.productManager = productManager;
         }
@@ -20,9 +19,7 @@ namespace NailWarehouse.WebApplication.Controllers
             var stats = productManager.GetStatsAsync();
             await Task.WhenAll(products, stats);
 
-            ViewData[nameof(IProductStats.TotalAmount)] = stats.Result.TotalAmount;
-            ViewData[nameof(IProductStats.FullPriceNoNds)] = stats.Result.FullPriceNoNds;
-            ViewData[nameof(IProductStats.FullPriceWithNds)] = stats.Result.FullPriceWithNds;
+            ViewData[nameof(IProductStats)] = stats.Result;
             return View(products.Result);
         }
 
