@@ -1,10 +1,9 @@
-using System.Configuration;
-using Microsoft.EntityFrameworkCore;
 using NailWarehouse.Forms;
 using NailWarehouse.ProductManager;
 using NailWarehouse.Database;
-using Serilog;
 using Serilog.Extensions.Logging;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace NailWarehouse
 {
@@ -25,7 +24,7 @@ namespace NailWarehouse
                 .CreateLogger();
 
             var logger = new SerilogLoggerFactory(serilogLogger)
-                .CreateLogger(nameof(ProductsManager));
+                .CreateLogger<ProductsManager>();
 
             var storage = new ProductStorage();
             var manager = new ProductsManager(storage, logger);

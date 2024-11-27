@@ -16,7 +16,11 @@ namespace NailWarehouse.Forms
             {
                 Id = Guid.NewGuid(),
                 Name = "",
+                Size = 0,
                 Material = EnumHelper.GetEnumDescription(Materials.Copper),
+                Quantity = 0,
+                MinimumQuantity = 0,
+                Price = 0,
             };
 
             tbName.AddBinding(control => control.Text, Product, product => product.Name, errorProvider1);

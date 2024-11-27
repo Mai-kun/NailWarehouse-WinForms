@@ -9,9 +9,9 @@ namespace NailWarehouse.ProductManager
     public class ProductsManager : IProductManager
     {
         private readonly IProductStorage productStorage;
-        private readonly ILogger logger;
+        private readonly ILogger<IProductManager> logger;
 
-        public ProductsManager(IProductStorage productStorage, ILogger logger)
+        public ProductsManager(IProductStorage productStorage, ILogger<IProductManager> logger)
         {
             this.productStorage = productStorage;
             this.logger = logger;
