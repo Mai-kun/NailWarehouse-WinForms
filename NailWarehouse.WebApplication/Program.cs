@@ -14,8 +14,6 @@ namespace NailWarehouse.WebApplication
                 .CreateLogger();
 
             var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddSingleton<IProductStorage, ProductStorage>();
@@ -24,7 +22,6 @@ namespace NailWarehouse.WebApplication
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -33,9 +30,7 @@ namespace NailWarehouse.WebApplication
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.MapControllerRoute(
