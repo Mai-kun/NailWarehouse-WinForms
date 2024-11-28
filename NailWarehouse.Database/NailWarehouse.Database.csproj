@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,10 @@
     <Reference Include="System.Configuration.ConfigurationManager">
       <HintPath>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\7.0.20\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="App.config" />
   </ItemGroup>
 
 </Project>
