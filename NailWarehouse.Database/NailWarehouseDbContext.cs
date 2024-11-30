@@ -1,14 +1,14 @@
 ﻿using System.Configuration;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 using NailWarehouse.Contracts.Models;
 
 namespace NailWarehouse.Database
 {
     public class NailWarehouseDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public NailWarehouseDbContext()
+            : base(ConfigurationManager.ConnectionStrings["DefaultConnectionString"].ConnectionString)
         {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnectionString"].ConnectionString);
         }
 
         public DbSet<Product> Products { get; set; }

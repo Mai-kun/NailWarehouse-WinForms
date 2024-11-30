@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data.Entity;
 using NailWarehouse.Contracts;
 using NailWarehouse.Contracts.Models;
 
@@ -10,7 +10,7 @@ namespace NailWarehouse.Database
         async Task<Product> IProductStorage.AddAsync(Product product)
         {
             using var context = new NailWarehouseDbContext();
-            await context.AddAsync(product);
+            context.Products.Add(product);
             await context.SaveChangesAsync();
             return product;
         }
