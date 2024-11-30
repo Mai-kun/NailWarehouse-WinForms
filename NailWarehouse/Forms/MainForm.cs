@@ -20,7 +20,7 @@ namespace NailWarehouse.Forms
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            await LoadProducts();
+            await Task.WhenAll(LoadProducts(), UpdateStatusStrip());
             dataGridView1.Columns.Add("TotalPrice", "Общая цена");
             dataGridView1.Columns[nameof(Product.Id)].Visible = false;
         }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NailWarehouse.Contracts.Models
 {
-    public class Product
+    public class Product : ICloneable
     {
         public Guid Id { get; set; }
 
@@ -22,7 +22,7 @@ namespace NailWarehouse.Contracts.Models
         [DisplayName("Размер")]
         [Range(0d, double.MaxValue,
             ErrorMessage = "Число должно быть больше 0")]
-        public decimal? Size { get; set; }
+        public decimal Size { get; set; }
 
         /// <summary>
         /// Материал товара
@@ -44,7 +44,7 @@ namespace NailWarehouse.Contracts.Models
         [DisplayName("Минимальное количество")]
         [Range(0, int.MaxValue,
             ErrorMessage = "Число должно быть больше 0")]
-        public int? MinimumQuantity { get; set; }
+        public int MinimumQuantity { get; set; }
 
         /// <summary>
         /// Цена (без НДС)
@@ -57,9 +57,9 @@ namespace NailWarehouse.Contracts.Models
         /// <summary>
         /// Создает новый объект, который является копией текущего экземпляра
         /// </summary>
-        public Product Clone()
+        public object Clone()
         {
-            return (Product)MemberwiseClone();
+            return MemberwiseClone();
         }
     }
 }
