@@ -7,7 +7,7 @@ namespace NailWarehouse.Database
     public class NailWarehouseDbContext : DbContext
     {
         public NailWarehouseDbContext()
-            : base(ConfigurationManager.ConnectionStrings["DefaultConnectionString"].ConnectionString)
+            : base("NailWarehouseDatabase")
         {
         }
 
