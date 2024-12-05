@@ -35,7 +35,7 @@ namespace NailWarehouse.WebApplication.Controllers
         }
 
         /// <summary>
-        /// Обрабатывает создание нового продукта.
+        /// Создает новый продукт.
         /// </summary>
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
@@ -66,7 +66,7 @@ namespace NailWarehouse.WebApplication.Controllers
         }
 
         /// <summary>
-        /// Обрабатывает редактирование существующего продукта.
+        /// Редактирует существующий продукт.
         /// </summary>
         [HttpPost]
         public async Task<IActionResult> Edit(Guid id, Product product)
@@ -88,7 +88,7 @@ namespace NailWarehouse.WebApplication.Controllers
         }
 
         /// <summary>
-        /// Обрабатывает удаление продукта по его идентификатору.
+        /// Удаляет продукт по его идентификатору.
         /// </summary>
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
